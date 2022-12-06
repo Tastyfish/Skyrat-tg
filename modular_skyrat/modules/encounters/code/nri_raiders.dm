@@ -89,6 +89,9 @@
 	spawned_human.fully_replace_character_name(null, "[rank] [last_name]")
 	spawned_human.grant_language(/datum/language/panslavic, TRUE, TRUE, LANGUAGE_MIND)
 
+	spawned_human.mind.add_antag_datum(/datum/antagonist/nri, team)
+	team.players_spawned += spawned_human.key
+
 /obj/effect/mob_spawn/ghost_role/human/nri_raider/Destroy()
 	. = ..()
 	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
@@ -107,8 +110,7 @@
 
 /obj/effect/mob_spawn/ghost_role/human/nri_raider/officer/special(mob/living/carbon/human/spawned_human)
 	. = ..()
-	spawned_human.grant_language(/datum/language/uncommon, TRUE, TRUE, LANGUAGE_MIND)
-	spawned_human.grant_language(/datum/language/panslavic, TRUE, TRUE, LANGUAGE_MIND)
+	spawned_human.grant_language(/datum/language/uncommon, TRUE, TRUE, LANGUAGE_MIND)]
 	spawned_human.grant_language(/datum/language/yangyu, TRUE, TRUE, LANGUAGE_MIND)
 
 /obj/effect/mob_spawn/ghost_role/human/nri_raider/marine
@@ -282,3 +284,18 @@
 /obj/machinery/suit_storage_unit/nri
 	mod_type = /obj/item/mod/control/pre_equipped/frontline/pirate
 	storage_type = /obj/item/tank/internals/oxygen/yellow
+
+/datum/antagonist/nri
+	name = "\improper NRI Marine"
+	job_rank = ROLE_TRAITOR
+	roundend_category = "NRI marines"
+	show_in_antagpanel = FALSE
+	show_to_ghosts = TRUE
+	preview_outfit = /datum/outfit/pirate/nri_marine
+	antag_hud_name = "Russian"
+	var/spawn_text = "The station has refused to pay the fine for breaking Imperial regulations, you are here to recover the debt. Do so by demanding the funds. Force approach is usually recommended, but isn't the only method."
+
+/datum/antagonist/nri/greet()
+	. = ..()
+
+	to_chat(owner, spawn_red(spawn_text))
