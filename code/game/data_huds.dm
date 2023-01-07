@@ -168,10 +168,7 @@ Medical HUD! Basic mode needs suit sensors on.
 
 //called when a living mob changes health
 /mob/living/proc/med_hud_set_health()
-	var/image/holder = hud_list?[HEALTH_HUD]
-	if (isnull(holder))
-		return
-
+	var/image/holder = hud_list[HEALTH_HUD]
 	holder.icon_state = "hud[RoundHealth(src)]"
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
@@ -182,10 +179,7 @@ Medical HUD! Basic mode needs suit sensors on.
 
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/proc/med_hud_set_status()
-	var/image/holder = hud_list?[STATUS_HUD]
-	if (isnull(holder))
-		return
-
+	var/image/holder = hud_list[STATUS_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
 	if(stat == DEAD || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
@@ -194,10 +188,7 @@ Medical HUD! Basic mode needs suit sensors on.
 		holder.icon_state = "hudhealthy"
 
 /mob/living/carbon/med_hud_set_status()
-	var/image/holder = hud_list?[STATUS_HUD]
-	if (isnull(holder))
-		return
-
+	var/image/holder = hud_list[STATUS_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	var/virus_threat = check_virus()
 	holder.pixel_y = I.Height() - world.icon_size

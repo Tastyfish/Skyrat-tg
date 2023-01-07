@@ -199,8 +199,7 @@ GLOBAL_LIST_EMPTY(total_uf_len_by_block)
 		else
 			return
 		death_sound = new_race.death_sound
-		if (dna.species.properly_gained)
-			dna.species.on_species_loss(src, new_race, pref_load)
+		dna.species.on_species_loss(src, new_race, pref_load)
 		var/datum/species/old_species = dna.species
 		dna.species = new_race
 

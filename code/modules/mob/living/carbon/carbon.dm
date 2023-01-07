@@ -1,6 +1,6 @@
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
-	create_carbon_reagents()
+	create_reagents(1000, REAGENT_HOLDER_ALIVE)
 	update_body_parts() //to update the carbon's new bodyparts appearance
 	register_context()
 
@@ -216,12 +216,6 @@
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return FALSE
-
-/mob/living/carbon/proc/create_carbon_reagents()
-	if (!isnull(reagents))
-		return
-
-	create_reagents(1000, REAGENT_HOLDER_ALIVE)
 
 /mob/living/carbon/Topic(href, href_list)
 	..()
@@ -992,14 +986,11 @@
 		to_chat(user, span_notice("You retrieve some of [src]\'s internal organs!"))
 	remove_all_embedded_objects()
 
-/// Creates body parts for this carbon completely from scratch.
-/// Optionally takes a map of body zones to what type to instantiate instead of them.
-/mob/living/carbon/proc/create_bodyparts(list/overrides)
+/mob/living/carbon/proc/create_bodyparts()
 	var/l_arm_index_next = -1
 	var/r_arm_index_next = 0
-	for(var/obj/item/bodypart/bodypart_path as anything in bodyparts)
-		var/real_body_part_path = overrides?[initial(bodypart_path.body_zone)] || bodypart_path
-		var/obj/item/bodypart/bodypart_instance = new real_body_part_path()
+	for(var/bodypart_path in bodyparts)
+		var/obj/item/bodypart/bodypart_instance = new bodypart_path()
 		bodypart_instance.set_owner(src)
 		bodyparts.Remove(bodypart_path)
 		add_bodypart(bodypart_instance)
