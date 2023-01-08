@@ -809,11 +809,16 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			return "FRONT_OVER"
 		//SKYRAT EDIT ADDITION END
 
-///Proc that will randomise the underwear (i.e. top, pants and socks) of a species' associated mob
-/datum/species/proc/randomize_active_underwear(mob/living/carbon/human/human_mob)
+///Proc that will randomise the underwear (i.e. top, pants and socks) of a species' associated mob,
+/// but will not update the body right away.
+/datum/species/proc/randomize_active_underwear_only(mob/living/carbon/human/human_mob)
 	human_mob.undershirt = random_undershirt(human_mob.gender)
 	human_mob.underwear = random_underwear(human_mob.gender)
 	human_mob.socks = random_socks(human_mob.gender)
+
+///Proc that will randomise the underwear (i.e. top, pants and socks) of a species' associated mob
+/datum/species/proc/randomize_active_underwear(mob/living/carbon/human/human_mob)
+	randomize_active_underwear_only(human_mob)
 	human_mob.update_body()
 
 ///Proc that will randomize all the external organs (i.e. horns, frills, tails etc.) of a species' associated mob
