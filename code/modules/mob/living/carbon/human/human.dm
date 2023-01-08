@@ -10,6 +10,8 @@
 	setup_mood()
 
 	setup_human_dna()
+
+	create_carbon_reagents()
 	prepare_huds() //Prevents a nasty runtime on human init
 
 	if(dna.species)
